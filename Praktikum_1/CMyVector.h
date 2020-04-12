@@ -10,10 +10,13 @@
 
 #include <vector>
 #include <algorithm>
+#include <ostream>
 
 class CMyVector
 {
     friend CMyVector operator*(double, const CMyVector&);
+    friend CMyVector operator+(const CMyVector&, const CMyVector&);
+    friend std::ostream& operator<<(std::ostream&, const CMyVector&);
 
 private:
     std::vector<double> m_comps;
@@ -37,10 +40,11 @@ public:
     void        set(std::initializer_list<double>&& values);
     double&     operator[](std::size_t index);
     double      operator[](std::size_t index) const;
-    CMyVector   operator+(const CMyVector& rhs);
-    CMyVector   operator*(double lambda);
+    double      length() const;
 };
 
-CMyVector operator*(double lambda, const CMyVector& vec);
+CMyVector gradient(const CMyVector&, double(*f)(const CMyVector&));
+
+std::ostream& operator<<(std::ostream&, const CMyVector&);
 
 #endif // CMYVECTOR_H
