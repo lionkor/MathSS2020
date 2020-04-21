@@ -1,10 +1,6 @@
-/* (c) Lion Kortlepel 2020
- * Since there was no specification on what can and cannot use, I'm
- * using a lot of features of C++17.
- * If you are confused as to what something is or does, feel free to
- * consult any book on modern C++ (covering C++17 and above) or 
- * cppreference.com.
- */
+// Copyright (c) Lion Kortlepel 2020
+// GitHub: lionkor
+// No license. Don't use.
 #ifndef CMYVECTOR_H
 #define CMYVECTOR_H
 

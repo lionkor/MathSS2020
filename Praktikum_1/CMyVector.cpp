@@ -1,3 +1,6 @@
+// Copyright (c) Lion Kortlepel 2020
+// GitHub: lionkor
+// No license. Don't use.
 #include "CMyVector.h"
 #include <numeric>
 #include <cmath>
