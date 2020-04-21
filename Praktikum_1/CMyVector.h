@@ -14,8 +14,8 @@
 
 class CMyVector
 {
-    friend CMyVector operator*(double, const CMyVector&);
-    friend CMyVector operator+(const CMyVector&, const CMyVector&);
+    friend CMyVector     operator+(const CMyVector&, const CMyVector&);
+    friend CMyVector     operator*(double, const CMyVector&);
     friend std::ostream& operator<<(std::ostream&, const CMyVector&);
 
 private:
@@ -43,7 +43,7 @@ public:
     double      length() const;
 };
 
-CMyVector gradient(const CMyVector&, double(*f)(const CMyVector&));
+CMyVector gradient(const CMyVector&, double (*f)(const CMyVector&));
 
 std::ostream& operator<<(std::ostream&, const CMyVector&);
 

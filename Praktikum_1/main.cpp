@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
 #include <cmath>
+#include <iomanip>
 #include "CMyVector.h"
 
 // tolerance
@@ -14,8 +15,79 @@ static double f(const CMyVector& vec) {
     return sin(vec[0] * vec[1]) + sin(vec[0]) + cos(vec[1]);
 }
 
-int main() {
+static double g(const CMyVector& vec) {
+    assert(vec.dimension() == 3);
+    const double& x1 = vec[0];
+    const double& x2 = vec[1];
+    const double& x3 = vec[2];
+    return -(2 * x1 * x1 - 2 * x1 * x2 + x2 * x2 + x3 * x3 - 2 * x1 - 4 * x3);
+}
 
+static double _f(const CMyVector& vec) {
+    return 4.0 * vec[0] * vec[0] + 5.0 * vec[1] * vec[2] * vec[2];
+}
+
+typedef double (*fx)(const CMyVector& x);
+
+static void gradientenverfahren(CMyVector x, fx f, double lambda = 1.0) {
+    CMyVector grad_f_x = gradient(x, f);
+    for (size_t i = 0; i < 25 && grad_f_x.length() >= 1e-5; ++i, grad_f_x = gradient(x, f)) {
+        CMyVector x_neu = x + lambda * grad_f_x;
+        std::cout << "Schritt " << i << ":" << std::endl
+                  << "\tx = " << x << std::endl
+                  << "\tlambda = " << lambda << std::endl
+                  << "\tf(x) = " << f(x) << std::endl
+                  << "\tgrad f(x) = " << grad_f_x << std::endl
+                  << "\t||grad f(x)|| = " << grad_f_x.length() << std::endl
+                  << std::endl
+                  << "\tx_neu = " << x_neu << std::endl
+                  << "\tf(x_neu) = " << f(x_neu) << std::endl
+                  << std::endl;
+        if (f(x_neu) > f(x)) {
+            // Teste eine doppelte Schrittweite.
+            CMyVector x_test = x + 2 * lambda * grad_f_x;
+            std::cout << "\tTest mit doppelter Schrittweite (lambda = " << lambda * 2 << ")" << std::endl
+                      << "\tx_test = " << x_test << std::endl
+                      << "\tf(x_test) = " << f(x_test) << std::endl;
+            if (f(x_test) > f(x_neu)) {
+                std::cout << "\tverdopple Schrittweite!" << std::endl
+                          << std::endl;
+                // Nimm x_test als neues x und verdopple die Schrittweite λ
+                x = x_test;
+                lambda *= 2;
+            } else {
+                std::cout << "\tbehalte alte Schrittweite!" << std::endl
+                          << std::endl;
+                // x_neu wird als neues x genommen und die Schrittweite beibehalten.
+                x = x_neu;
+            }
+        } else { // f(x_neu) <= f(x)
+            // Halbiere die Schrittweite solange bis f(x_neu) > f(x)
+            while (f(x_neu) <= f(x)) {
+                lambda /= 2.0;
+                x_neu = x + lambda * grad_f_x;
+                std::cout << "\tHalbiere Schrittweite (lambda = " << lambda << std::endl
+                          << "\tx_neu = " << x_neu << std::endl
+                          << "\tf(x_neu) = " << f(x_neu) << std::endl
+                          << std::endl;
+            }
+            x = x_neu;
+        }
+    }
+    if (grad_f_x.length() < 10e-5) {
+        std::cout << "Ende wegen ||grad f(x)|| < 10e-5 bei" << std::endl;
+    } else {
+        std::cout << "Ende wegen Schrittzahl = 25 bei" << std::endl;
+    }
+    std::cout << "\tx = " << x << std::endl
+              << "\tlambda = " << lambda << std::endl
+              << "\tf(x) = " << f(x) << std::endl
+              << "\tgrad f(x) = " << grad_f_x << std::endl
+              << "\t||grad f(x)|| = " << grad_f_x.length() << std::endl;
+}
+
+int main() {
+    std::cout << "testing..." << std::endl;
     // inside of tolerance
     assert(d_equals(0.00002, 0.00001) == true);
     // outside of tolerance
@@ -65,7 +137,17 @@ int main() {
     CMyVector x { { 0.2, -2.1 } };
 
     auto g_x = gradient(x, f);
-    
+
     assert(d_equals(g_x[0], -0.937420));
     assert(d_equals(g_x[1], 1.045827));
+
+    std::cout << "success!" << std::endl;
+
+    CMyVector test_vec_1 { 0.2, -2.1 };
+    gradientenverfahren(test_vec_1, f);
+
+    std::cout << std::setw(15) << std::setfill('=') << std::endl;
+
+    CMyVector test_vec_2 { 0, 0, 0 };
+    gradientenverfahren(test_vec_2, g, 0.1);
 }

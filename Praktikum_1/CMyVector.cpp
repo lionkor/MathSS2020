@@ -80,7 +80,7 @@ std::ostream& operator<<(std::ostream& os, const CMyVector& vec) {
     for (std::size_t i = 0; i < vec.dimension(); ++i) {
         os << std::setprecision(7) << vec[i];
         if (i + 1 < vec.dimension()) {
-            os << ", ";
+            os << "; ";
         }
     }
     os << " )";
