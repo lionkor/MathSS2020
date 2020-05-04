@@ -27,7 +27,10 @@ static double g(const CMyVector& vec) {
 }
 
 static double _f(const CMyVector& vec) {
-    return 4.0 * vec[0] * vec[0] + 5.0 * vec[1] * vec[2] * vec[2];
+    const auto& x = vec[0];
+    const auto& y = vec[1];
+    const auto& z = vec[2];
+    return x * x + 4 * y * z * z;
 }
 
 typedef double (*fx)(const CMyVector& x);
@@ -90,6 +93,11 @@ static void gradientenverfahren(CMyVector x, fx f, double lambda = 1.0) {
 }
 
 int main() {
+    CMyVector vb { 1, 3, 2 };
+    gradientenverfahren(vb, _f, 0.1);
+
+    return 0;
+
     std::cout << "testing..." << std::endl;
     // inside of tolerance
     assert(d_equals(0.00002, 0.00001) == true);
