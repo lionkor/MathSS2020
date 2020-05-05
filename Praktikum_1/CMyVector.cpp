@@ -37,6 +37,16 @@ double CMyVector::length() const {
     return std::sqrt(sum_of_squares);
 }
 
+double CMyVector::dot(const CMyVector& vec) const {
+    if (vec.dimension() != dimension())
+        throw std::runtime_error("dot product possible only between same-dimensional vectors");
+    double res = 0.0;
+    for (std::size_t i = 0; i < dimension(); ++i) {
+        res += vec[i] * (*this)[i];
+    }
+    return res;
+}
+
 void CMyVector::set(std::size_t index, double value) {
     m_comps.at(index) = value;
 }

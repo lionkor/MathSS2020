@@ -37,6 +37,7 @@ public:
     double&     operator[](std::size_t index);
     double      operator[](std::size_t index) const;
     double      length() const;
+    double      dot(const CMyVector&) const;
 };
 
 CMyVector gradient(const CMyVector&, double (*f)(const CMyVector&));
