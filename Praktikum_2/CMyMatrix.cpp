@@ -117,9 +117,7 @@ std::ostream& operator<<(std::ostream& os, const CMyMatrix& mat) {
     return os;
 }
 
-CMyMatrix jacobi(const CMyVector& x, FnPtr fn) {
-    static constexpr double h = 1e-4;
-
+CMyMatrix jacobi(const CMyVector& x, FnPtr fn, double h) {
     CMyMatrix res;
     res.set_dimensions(fn(x).dimension(), x.dimension());
 

@@ -55,7 +55,7 @@ public:
 };
 
 typedef CMyVector (*FnPtr)(const CMyVector&);
-CMyMatrix jacobi(const CMyVector& x, FnPtr fn);
+CMyMatrix jacobi(const CMyVector& x, FnPtr fn, double h = 1e-4);
 void      newton(const CMyVector& x, FnPtr fn);
 
 #endif // CMYMATRIX_H

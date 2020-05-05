@@ -37,5 +37,5 @@ int main(int, char**) {
     
     std::cout << std::endl;
     
-    newton(CMyVector{1, 1}, g);
+    newton(CMyVector { 1, 1 }, g);
 }
