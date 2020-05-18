@@ -23,8 +23,8 @@ int main(int, char**) {
     CMyMatrix mat;
     mat.set_values(
         { { 2, 3, -4 },
-            { 11, 8, 7 },
-            { 2, 5, 3 } });
+          { 11, 8, 7 },
+          { 2, 5, 3  } });
     mat.debug_print();
 
     CMyVector vec({ 3, 7, 5 });
