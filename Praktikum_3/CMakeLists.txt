@@ -9,6 +9,8 @@ project(Praktikum_3)
 add_executable(${CMAKE_PROJECT_NAME} main.cpp
     CMyVector.cpp
     CMyVector.h
+    C_DGLSolver.cpp
+    C_DGLSolver.h
 )
 
 #target_link_libraries(${CMAKE_PROJECT_NAME} )
