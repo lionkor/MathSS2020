@@ -46,4 +46,21 @@ static void run_tests() {
 
     TEST(a * 2.5 == CKomplex(2.5, 5));
     TEST(2.5 * a == CKomplex(2.5, 5));
+
+    {
+        // if these fail it might be due to floating point comparisons
+        CKomplex x(5, 10);
+        TEST(x.re() == 5);
+        TEST(x.im() == 10);
+        x.set_re(-3);
+        TEST(x.re() == -3);
+        TEST(x.im() == 10);
+        x.set_im(-5);
+        TEST(x.re() == -3);
+        TEST(x.im() == -5);
+    }
+
+    TEST(CKomplex(4, 3).abs() == 5); // unsafe compare
+
+    TEST(-a == CKomplex(-a.re(), -a.im()));
 }
