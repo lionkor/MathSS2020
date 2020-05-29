@@ -16,7 +16,6 @@ static double dgl_sys_fn(const CMyVector& y, double x) {
 }
 
 int main() {
-
     int  selection;
     auto null = std::ofstream("/dev/null");
 
