@@ -1,5 +1,6 @@
 #include <iostream>
 #include "CKomplex.h"
+#include "hoever_io.h"
 
 #define TEST(x)                                                                \
     do {                                                                       \
@@ -63,4 +64,9 @@ static void run_tests() {
     TEST(CKomplex(4, 3).abs() == 5); // unsafe compare
 
     TEST(-a == CKomplex(-a.re(), -a.im()));
+
+    {
+        auto res = werte_einlesen("test_data.txt");
+        werte_ausgeben("test_data_parsed.txt", res);
+    }
 }
