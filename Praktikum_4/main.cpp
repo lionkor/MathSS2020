@@ -15,6 +15,9 @@ int main() {
 }
 
 static void run_tests() {
+    TEST(true);
+    TEST(false);
+
     CKomplex a(1, 2);
     CKomplex b(3, 4);
 
@@ -68,5 +71,7 @@ static void run_tests() {
     {
         auto res = werte_einlesen("test_data.txt");
         werte_ausgeben("test_data_parsed.txt", res);
+        auto res2 = werte_einlesen("test_data_parsed.txt");
+        TEST(std::equal(res.begin(), res.end(), res2.begin(), res2.end()));
     }
 }
