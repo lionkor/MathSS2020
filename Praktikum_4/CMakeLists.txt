@@ -5,7 +5,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -Wextra -pedantic -pedantic-err
 
 project(Praktikum_3)
 
-add_executable(${CMAKE_PROJECT_NAME} main.cpp
-    CKomplex.h
+add_executable(${CMAKE_PROJECT_NAME} 
     CKomplex.cpp
+    CKomplex.h
+    hoever_io.cpp
+    hoever_io.h
+    main.cpp
 )
