@@ -28,6 +28,9 @@ public:
     CKomplex& operator-=(const CKomplex& rhs);
     CKomplex& operator*=(const CKomplex& rhs);
 
+    bool operator==(const CKomplex& rhs) const;
+    bool operator!=(const CKomplex& rhs) const;
+
     friend CKomplex operator*(double, const CKomplex&);
     friend CKomplex operator*(const CKomplex&, double);
 };

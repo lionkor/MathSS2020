@@ -56,3 +56,11 @@ CKomplex operator*(double scalar, const CKomplex& comp) {
 CKomplex operator*(const CKomplex& comp, double scalar) {
     return operator*(scalar, comp); // delegate
 }
+
+bool CKomplex::operator==(const CKomplex& rhs) const {
+    return std::abs(m_re - rhs.m_re) < 1e-10 && std::abs(m_im - rhs.m_im) < 1e-10;
+}
+
+bool CKomplex::operator!=(const CKomplex& rhs) const {
+    return !(*this == rhs); // delegate
+}
