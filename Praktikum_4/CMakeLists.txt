@@ -8,6 +8,8 @@ project(Praktikum_3)
 add_executable(${CMAKE_PROJECT_NAME} 
     CKomplex.cpp
     CKomplex.h
+    FT.cpp
+    FT.h
     hoever_io.cpp
     hoever_io.h
     main.cpp

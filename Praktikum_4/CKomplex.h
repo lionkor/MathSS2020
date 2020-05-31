@@ -1,6 +1,8 @@
 #ifndef CKOMPLEX_H
 #define CKOMPLEX_H
 
+#include <cmath>
+
 class CKomplex
 {
 private:
@@ -12,6 +14,9 @@ private:
 public:
     CKomplex(double _re, double _im)
         : m_im(_im), m_re(_re) { }
+    CKomplex(double _phi)
+        : m_im(std::sin(_phi))
+        , m_re(std::cos(_phi)) { }
 
     double im() const { return m_im; }
     double re() const { return m_re; }

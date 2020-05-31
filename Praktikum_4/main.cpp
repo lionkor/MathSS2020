@@ -1,6 +1,8 @@
+#include <cmath>
 #include <iostream>
 #include "CKomplex.h"
 #include "hoever_io.h"
+#include "FT.h"
 
 #define TEST(x)                                                                \
     do {                                                                       \
@@ -10,8 +12,32 @@
 
 static void run_tests();
 
+static double max_diff(const std::vector<CKomplex>& a, const std::vector<CKomplex>& b) {
+    double max_diff = 0;
+    for (std::size_t i = 0; i < a.size(); ++i) {
+        auto diff = std::abs(a[i].abs() - b[i].abs());
+        if (diff > max_diff)
+            max_diff = diff;
+    }
+    return max_diff;
+}
+
 int main() {
     run_tests();
+
+    auto values  = werte_einlesen("test_data.txt");
+    auto results = fourier(values);
+    werte_ausgeben("results_default.txt", results);
+    werte_ausgeben("results_0.1.txt", results, 0.1);
+    werte_ausgeben("results_1.0.txt", results, 1.0);
+
+    auto back_default = inverse_fourier(werte_einlesen("results_default.txt"));
+    auto back_0_1     = inverse_fourier(werte_einlesen("results_0.1.txt"));
+    auto back_1_0     = inverse_fourier(werte_einlesen("results_1.0.txt"));
+
+    printf("diff @ E=default: %.15f\n", max_diff(back_default, values));
+    printf("diff @ E=0.1: %.15f\n", max_diff(back_0_1, values));
+    printf("diff @ E=1.0: %.15f\n", max_diff(back_1_0, values));
 }
 
 static void run_tests() {
@@ -74,4 +100,7 @@ static void run_tests() {
         auto res2 = werte_einlesen("test_data_parsed.txt");
         TEST(std::equal(res.begin(), res.end(), res2.begin(), res2.end()));
     }
+
+    CKomplex from_phi(pi());
+    std::printf("%.15f + %.15fi\n", from_phi.re(), from_phi.im());
 }
