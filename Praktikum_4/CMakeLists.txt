@@ -3,7 +3,7 @@ set(CMAKE_CXX_COMPILER g++)
 set(CMAKE_C_COMPILER gcc)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -Wextra -pedantic -pedantic-errors")
 
-project(Praktikum_3)
+project(Praktikum_4)
 
 add_executable(${CMAKE_PROJECT_NAME} 
     CKomplex.cpp

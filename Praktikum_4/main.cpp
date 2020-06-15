@@ -4,12 +4,6 @@
 #include "hoever_io.h"
 #include "FT.h"
 
-#define TEST(x)                                                                \
-    do {                                                                       \
-        if (!(x))                                                              \
-            std::cout << __LINE__ << " failed: \"" << #x << "\"" << std::endl; \
-    } while (false)
-
 static void run_tests();
 
 static double max_diff(const std::vector<CKomplex>& a, const std::vector<CKomplex>& b) {
@@ -23,7 +17,7 @@ static double max_diff(const std::vector<CKomplex>& a, const std::vector<CKomple
 }
 
 int main() {
-    run_tests();
+    //run_tests();
 
     auto values  = werte_einlesen("test_data.txt");
     auto results = fourier(values);
@@ -35,12 +29,18 @@ int main() {
     auto back_0_1     = inverse_fourier(werte_einlesen("results_0.1.txt"));
     auto back_1_0     = inverse_fourier(werte_einlesen("results_1.0.txt"));
 
-    printf("diff @ E=default: %.15f\n", max_diff(back_default, values));
-    printf("diff @ E=0.1: %.15f\n", max_diff(back_0_1, values));
-    printf("diff @ E=1.0: %.15f\n", max_diff(back_1_0, values));
+    std::printf("diff @ E=default: %.15f\n", max_diff(back_default, values));
+    std::printf("diff @ E=0.1: %.15f\n", max_diff(back_0_1, values));
+    std::printf("diff @ E=1.0: %.15f\n", max_diff(back_1_0, values));
 }
 
 static void run_tests() {
+#define TEST(x)                                                                \
+    do {                                                                       \
+        if (!(x))                                                              \
+            std::cout << __LINE__ << " failed: \"" << #x << "\"" << std::endl; \
+    } while (false)
+
     TEST(true);
     TEST(false);
 

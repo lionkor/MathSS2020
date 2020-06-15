@@ -8,9 +8,9 @@ std::vector<CKomplex> fourier(const std::vector<CKomplex>& values) {
     for (std::size_t n = 0; n < N; ++n) {
         CKomplex phi(0, 0);
         for (std::size_t k = 0; k < N; ++k) {
-            phi += values[k].re() * CKomplex((-1.0 * (2.0 * pi() * double(k) * double(n))) / double(N));
+            phi += values[k] * CKomplex((-1.0 * (2.0 * pi() * double(k) * double(n))) / double(N));
         }
-        phi           = (1 / sqrt(double(N))) * phi;
+        phi           = (1.0 / sqrt(double(N))) * phi;
         results.at(n) = CKomplex(phi);
     }
 
@@ -27,7 +27,7 @@ std::vector<CKomplex> inverse_fourier(const std::vector<CKomplex>& values) {
         for (std::size_t n = 0; n < N; ++n) {
             phi += values[n] * CKomplex(((2.0 * pi() * double(n) * double(k))) / double(N));
         }
-        results.at(k).set_re((1.0 / sqrt(double(N))) * phi.re());
+        results.at(k) = phi * (1.0 / sqrt(double(N)));
     }
 
     return results;
